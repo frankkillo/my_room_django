@@ -142,9 +142,22 @@ try:
     PROD_ALLOWED_HOSTS = dev.DEV_ALLOWED_HOSTS
 
     CORS_ALLOWED_ORIGINS = dev.DEV_CORS_ALLOWED_ORIGINS
+except:
+    print('Dev conf does not exist')
 
+try:
+    import my_room_django.prod as prod
+
+    SECRET_KEY = prod.PROD_SECRET_KEY
+    DEBUG = prod.PROD_DEBUG
+    ALLOWED_HOSTS = prod.PROD_ALLOWED_HOSTS
+    DATABASES = prod.PROD_DATABASES
+    CORS_ALLOWED_ORIGINS = prod.PROD_CORS_ALLOWED_ORIGINS
 except:
     print('Dev conf does not exist')
 
 
 
+=======
+    print('Prod conf. does not exist')
+>>>>>>> 737333ca76f2bd6eb73dac75d0d4b7f7604bd0c8
