@@ -135,13 +135,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = []
 
 try:
-    from my_room_django.my_room_django import dev
+    import my_room_django.prod as prod
 
-    PROD_SECRET_KEY = dev.PROD_SECRET_KEY
-
-    PROD_ALLOWED_HOSTS = dev.PROD_ALLOWED_HOSTS
-
-    CORS_ALLOWED_ORIGINS = dev.PROD_ALLOWED_HOSTS
-
+    SECRET_KEY = prod.PROD_SECRET_KEY
+    DEBUG = prod.PROD_DEBUG
+    ALLOWED_HOSTS = prod.PROD_ALLOWED_HOSTS
+    DATABASES = prod.PROD_DATABASES
+    CORS_ALLOWED_ORIGINS = prod.PROD_CORS_ALLOWED_ORIGINS
 except:
-    print('Dev conf does not exist')
+    print('Prod conf. does not exist')
