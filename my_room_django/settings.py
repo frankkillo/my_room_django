@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-l!y=gfqprjgajg-xj4dmd)t93ct(36ggsqk*xj&d=lqhe8fwba'
+SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -132,7 +132,16 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-    "http://192.168.0.19:8080"
-]
+CORS_ALLOWED_ORIGINS = []
+
+try:
+    from my_room_django.my_room_django import dev
+
+    PROD_SECRET_KEY = dev.PROD_SECRET_KEY
+
+    PROD_ALLOWED_HOSTS = dev.PROD_ALLOWED_HOSTS
+
+    CORS_ALLOWED_ORIGINS = dev.PROD_ALLOWED_HOSTS
+
+except:
+    print('Dev conf does not exist')
