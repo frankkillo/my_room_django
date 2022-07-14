@@ -154,10 +154,4 @@ try:
     DATABASES = prod.PROD_DATABASES
     CORS_ALLOWED_ORIGINS = prod.PROD_CORS_ALLOWED_ORIGINS
 except:
-    print('Dev conf does not exist')
-
-
-
-=======
     print('Prod conf. does not exist')
->>>>>>> 737333ca76f2bd6eb73dac75d0d4b7f7604bd0c8
