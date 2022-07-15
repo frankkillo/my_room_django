@@ -70,5 +70,5 @@ def get_hotels_photos(hotel_id):
 def get_photo(photo_id):
     resp = requests.get(f'https://photo.hotellook.com/image_v2/limit/{photo_id}/800/520.auto')
     resp.raise_for_status()
-
+    
     return resp.content

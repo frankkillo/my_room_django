@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/dev/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/dev/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -20,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ''
+SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-l!y=gfqprjgajg-xj4dmd)t93ct(36ggsqk*xj&d=lqhe8fwba")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = int(os.environ.get("DEBUG", default=1))
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1").split(" ")
 
 
 # Application definition
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -132,26 +133,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOWED_ORIGINS = []
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-try:
-    import my_room_django.dev as dev
-
-    PROD_SECRET_KEY = dev.DEV_SECRET_KEY
-
-    PROD_ALLOWED_HOSTS = dev.DEV_ALLOWED_HOSTS
-
-    CORS_ALLOWED_ORIGINS = dev.DEV_CORS_ALLOWED_ORIGINS
-except:
-    print('Dev conf does not exist')
-
-try:
-    import my_room_django.prod as prod
-
-    SECRET_KEY = prod.PROD_SECRET_KEY
-    DEBUG = prod.PROD_DEBUG
-    ALLOWED_HOSTS = prod.PROD_ALLOWED_HOSTS
-    DATABASES = prod.PROD_DATABASES
-    CORS_ALLOWED_ORIGINS = prod.PROD_CORS_ALLOWED_ORIGINS
-except:
-    print('Prod conf. does not exist')
+CORS_ALLOWED_ORIGINS = os.environ.get("DJANGO_ALLOWED_HOSTS", "http://localhost:8080 http://192.168.0.19:8080").split(" ")
