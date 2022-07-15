@@ -135,4 +135,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-CORS_ALLOWED_ORIGINS = os.environ.get("DJANGO_ALLOWED_HOSTS", "http://localhost:8080 http://192.168.0.19:8080").split(" ")
+CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:8080 http://192.168.0.19:8080").split(" ")
