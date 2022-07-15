@@ -87,7 +87,7 @@ DATABASES = {
     }
 }
 
-if DEBUG == 1:
+if DEBUG == 0:
     import dj_database_url
     
     db_from_env = dj_database_url.config(conn_max_age=600)
@@ -134,7 +134,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATIC_URL = '/static/'
 
-STATICFILES_STORAGE = "whitenoise.storage.GzipManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.django.GzipManifestStaticFilesStorage"
 
 MEDIA_URL = '/media/'
 
