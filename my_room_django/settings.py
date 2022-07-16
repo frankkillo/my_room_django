@@ -25,8 +25,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-l!y=gfqprjgajg-xj4dmd
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get("DEBUG", default=1))
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1").split(" ")
-
+ALLOWED_HOSTS = os.environ.get("RENDER_EXTERNAL_HOSTNAME", "localhost 127.0.0.1").split(" ")
 
 # Application definition
 
@@ -36,7 +35,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
@@ -88,11 +86,24 @@ DATABASES = {
     }
 }
 
-if DEBUG == 0:
+if not DEBUG:
+#    DATABASES = {
+#        "default": {
+#            "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
+#            "NAME": os.environ.get("SQL_DATABASE", BASE_DIR / "db.sqlite3"),
+#            "USER": os.environ.get("SQL_USER", "user"),
+#            "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+#            "HOST": os.environ.get("SQL_HOST", "localhost"),
+#            "PORT": os.environ.get("SQL_PORT", "5432"),
+#        }
+#    }
+
     import dj_database_url
-    
-    db_from_env = dj_database_url.config(conn_max_age=600)
+    db_from_env = dj_database_url.config(default=os.environ.get("DATABASE_URL"), conn_max_age=600)
     DATABASES['default'].update(db_from_env)
+
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 
@@ -131,11 +142,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 #STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
 
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
 STATIC_URL = '/static/'
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 MEDIA_URL = '/media/'
 

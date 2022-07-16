@@ -1,9 +1,9 @@
-django>3.8.2<=4.1
+django
 djangorestframework
 django-cors-headers
 django-versatileimagefield
 requests
 gunicorn
-whitenoise
-psycopg2
+whitenoise[brotli]
+psycopg2-binary
 dj-database-url

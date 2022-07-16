@@ -2,8 +2,4 @@ hotel-photos/
 
 db.sqlite3
 
-dev.py
-
-prod.py
-
 .env
