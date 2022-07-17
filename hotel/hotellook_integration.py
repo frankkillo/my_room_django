@@ -2,7 +2,6 @@
 import tempfile
 from django.core.files import File
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.files.storage import default_storage
 
 from hotellook.client import search_hotels, get_hotels_photos, get_photo
 from .models import Hotel, HotelPhoto
@@ -48,12 +47,9 @@ def hotel_photos(hotel_id):
             lf = tempfile.NamedTemporaryFile()
             lf.write(bytearray)
 
-            saved_image = default_storage.save(f'{photo_id}.jpg', File(lf, 'rb'))
-
             hotel_photo.image.save(
                 f'{photo_id}S1.jpg',
-                default_storage.open(saved_image)
-                #File(lf, 'rb')
+                File(lf.seek(0), 'rb')
             )
             hotel_photo.save()
     
