@@ -86,7 +86,7 @@ DATABASES = {
     }
 }
 
-if not DEBUG:
+if DEBUG:
 #    DATABASES = {
 #        "default": {
 #            "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.sqlite3"),
