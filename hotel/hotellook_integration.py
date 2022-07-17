@@ -1,4 +1,5 @@
-import shutil
+
+import os
 import tempfile
 from django.core.files import File
 from django.core.exceptions import ObjectDoesNotExist
@@ -46,10 +47,10 @@ def hotel_photos(hotel_id):
         if created: 
             bytearray = get_photo(photo_id)
             if settings.DEBUG:
-                with open(f'data/{photo_id}.jpg', 'wb') as file:
+                with open(f'{photo_id}.jpg', 'wb') as file:
                     file.write(bytearray)
                     hotel_photo.image.save(file)
-                    shutil.rmtree(f'data/{photo_id}.jpg')
+                    os.remove(f'{photo_id}.jpg')
             else:
                 lf = tempfile.NamedTemporaryFile()
                 lf.write(bytearray)
