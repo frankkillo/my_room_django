@@ -24,11 +24,5 @@ urlpatterns = [
     path('api/v1/hotels/', include('hotel.urls'))
 ]
 
-if not settings.DEBUG:
-    urlpatterns += [
-    re_path(r'^media/(?P<path>.*)$', serve, {
-        'document_root': settings.MEDIA_ROOT,
-    }),
-]
-else:
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
