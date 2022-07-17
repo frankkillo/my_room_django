@@ -52,17 +52,23 @@ class HlookHotel:
 
 def search_hotels(location, check_in, check_out):
     url = 'http://engine.hotellook.com/api/v2/cache.json?currency=rub&limit=10'
+    try:
+        resp = requests.get(url+'&location='+location+'&checkIn='+check_in+'&checkOut='+check_out)
+        resp.raise_for_status()
+    except:
+        return []
 
-    resp = requests.get(url+'&location='+location+'&checkIn='+check_in+'&checkOut='+check_out)
-    resp.raise_for_status()
     resp_data = resp.json()
 
     for hotel in resp_data:
         yield HlookHotel(hotel)
 
 def get_hotels_photos(hotel_id):
-    resp = requests.get(f'https://yasen.hotellook.com/photos/hotel_photos?id={hotel_id}')
-    resp.raise_for_status()
+    try:
+        resp = requests.get(f'https://yasen.hotellook.com/photos/hotel_photos?id={hotel_id}')
+        resp.raise_for_status()
+    except:
+        return []
     resp_data = resp.json()
     
     return resp_data[str(hotel_id)]

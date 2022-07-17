@@ -1,8 +1,9 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from django.http import Http404
 
-from .models import Hotel, HotelPhoto
+from .models import Hotel
 from .serializers import HotelSerializer, HotelPhotoSerializer
 from .hotellook_integration import search_and_save, hotel_photos
 
@@ -27,3 +28,5 @@ def get_hotel_photos(request, id):
         serializer = HotelPhotoSerializer(hotel.photos, many=True, context={"request": request})
 
         return Response(serializer.data)
+    
+    return Http404("Hotel not found")
