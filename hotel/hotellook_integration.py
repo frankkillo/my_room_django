@@ -47,7 +47,6 @@ def hotel_photos(hotel_id):
             bytearray = get_photo(photo_id)
             lf = tempfile.NamedTemporaryFile()
             lf.write(bytearray)
-            lf.flush()
 
             hotel_photo.image.save(
                 f'{photo_id}.jpg',

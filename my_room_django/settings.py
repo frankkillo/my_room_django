@@ -103,7 +103,7 @@ if DEBUG:
     db_from_env = dj_database_url.config(default=os.environ.get("DATABASE_URL"), conn_max_age=600)
     DATABASES['default'].update(db_from_env)
 
-    INSTALLED_APPS += ['cloudinary', 'cloudinary_storage']
+    INSTALLED_APPS += ['cloudinary_storage', 'cloudinary']
 
     CLOUDINARY_STORAGE = {
         'CLOUD_NAME': os.environ.get('CLOUD_NAME'),
