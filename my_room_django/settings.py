@@ -111,7 +111,7 @@ if DEBUG:
         'API_SECRET': os.environ.get('API_SECRET'),
     }
 
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.RawMediaCloudinaryStorage'
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
