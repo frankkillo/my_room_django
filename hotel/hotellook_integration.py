@@ -49,7 +49,8 @@ def hotel_photos(hotel_id):
 
             hotel_photo.image.save(
                 f'{photo_id}.jpg',
-                File(lf, 'rb')
+                lf
+                #File(lf, 'rb')
             )
             hotel_photo.save()
     
