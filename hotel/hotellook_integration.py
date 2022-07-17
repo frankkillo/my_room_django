@@ -51,8 +51,7 @@ def hotel_photos(hotel_id):
 
             hotel_photo.image.save(
                 f'{photo_id}.jpg',
-                bytearray
-                #File(lf, 'rb')
+                File(lf, 'rb')
             )
             hotel_photo.save()
     
