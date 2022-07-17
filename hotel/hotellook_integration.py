@@ -49,7 +49,7 @@ def hotel_photos(hotel_id):
             if settings.DEBUG:
                 with open(f'{photo_id}.jpg', 'wb') as file:
                     file.write(bytearray)
-                    hotel_photo.image.save(file)
+                    hotel_photo.image.save(f'{photo_id}.jpg', file)
                     os.remove(f'{photo_id}.jpg')
             else:
                 lf = tempfile.NamedTemporaryFile()
