@@ -44,13 +44,14 @@ def hotel_photos(hotel_id):
         hotel_photo, created = HotelPhoto.objects.get_or_create(id=photo_id, hotel=hotel)
         if created: 
             bytearray = get_photo(photo_id)
-            lf = tempfile.NamedTemporaryFile()
+            lf = tempfile.NamedTemporaryFile(delete=False)
+            lf.name(f'{photo_id}S2.jpg')
             lf.write(bytearray)
             lf.flush()
 
             hotel_photo.image.save(
                 f'{photo_id}S1.jpg',
-                File(lf.seek(0)),
+                File(lf.seek(0), f'{photo_id}.jpg'),
                 save=True
             )    
     return True
