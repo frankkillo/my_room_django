@@ -36,7 +36,7 @@ def hotel_photos(hotel_id):
     try:
         hotel = Hotel.objects.get(id=hotel_id)
     except ObjectDoesNotExist:
-        return None
+        return False
 
     photos_ids = get_hotels_photos(hotel_id)
 

@@ -29,4 +29,4 @@ def get_hotel_photos(request, id):
 
         return Response(serializer.data)
     
-    return Http404("Hotel not found")
+    return Response("Hotel not found", status=status.HTTP_404_NOT_FOUND)
