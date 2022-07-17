@@ -51,7 +51,8 @@ def hotel_photos(hotel_id):
 
             hotel_photo.image.save(
                 f'{photo_id}S1.jpg',
-                File(lf.seek(0), f'{photo_id}.jpg'),
+                lf.seek(0)
+                #File(lf.seek(0), f'{photo_id}.jpg'),
                 save=True
             )    
     return True
