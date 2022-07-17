@@ -102,10 +102,6 @@ if not DEBUG:
     db_from_env = dj_database_url.config(default=os.environ.get("DATABASE_URL"), conn_max_age=600)
     DATABASES['default'].update(db_from_env)
 
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
@@ -143,6 +139,10 @@ USE_TZ = True
 #STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 
