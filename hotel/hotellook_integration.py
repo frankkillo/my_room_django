@@ -46,11 +46,11 @@ def hotel_photos(hotel_id):
             bytearray = get_photo(photo_id)
             lf = tempfile.NamedTemporaryFile()
             lf.write(bytearray)
+            lf.flush()
 
             hotel_photo.image.save(
                 f'{photo_id}S1.jpg',
-                File(lf.seek(0), 'rb')
-            )
-            hotel_photo.save()
-    
+                File(lf.seek(0)),
+                save=True
+            )    
     return True
