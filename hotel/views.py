@@ -25,7 +25,7 @@ def search(request):
 def get_hotel_photos(request, id):
     if hotel_photos(id):
         hotel = Hotel.objects.get(id=id)
-        serializer = HotelPhotoSerializer(hotel.photos, many=True, context={"request": request})
+        serializer = HotelPhotoSerializer(hotel.photos, many=True)
 
         return Response(serializer.data)
     

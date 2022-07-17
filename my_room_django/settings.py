@@ -97,8 +97,7 @@ if DEBUG:
 #            "PORT": os.environ.get("SQL_PORT", "5432"),
 #        }
 #    }
-    import cloudinary
-    import cloudinary_storage
+    
     import dj_database_url
 
     db_from_env = dj_database_url.config(default=os.environ.get("DATABASE_URL"), conn_max_age=600)
