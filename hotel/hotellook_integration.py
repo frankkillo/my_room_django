@@ -1,7 +1,8 @@
-import os
+import shutil
 import tempfile
 from django.core.files import File
 from django.core.exceptions import ObjectDoesNotExist
+from django.conf import settings
 
 from hotellook.client import search_hotels, get_hotels_photos, get_photo
 from .models import Hotel, HotelPhoto
@@ -42,16 +43,21 @@ def hotel_photos(hotel_id):
 
     for photo_id in photos_ids:
         hotel_photo, created = HotelPhoto.objects.get_or_create(id=photo_id, hotel=hotel)
-        if created:
+        if created: 
             bytearray = get_photo(photo_id)
-            lf = tempfile.NamedTemporaryFile()
-            lf.write(bytearray)
+            if settings.DEBUG:
+                with open(f'data/{photo_id}.jpg', 'wb') as file:
+                    file.write(bytearray)
+                    hotel_photo.image.save(file)
+                    shutil.rmtree(f'data/{photo_id}.jpg')
+            else:
+                lf = tempfile.NamedTemporaryFile()
+                lf.write(bytearray)
 
-            hotel_photo.image.save(
-                f'{photo_id}.jpg',
-                bytearray
-                #File(lf, 'wb')
-            )
+                hotel_photo.image.save(
+                    f'{photo_id}.jpg',
+                    File(lf, 'wb')
+                )
             hotel_photo.save()
     
     return True
