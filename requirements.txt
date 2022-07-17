@@ -7,5 +7,5 @@ gunicorn
 whitenoise[brotli]
 psycopg2-binary
 dj-database-url
-cloudinary==1.17.0
-django-cloudinary-storage==0.2.3
+cloudinary
+django-cloudinary-storage
