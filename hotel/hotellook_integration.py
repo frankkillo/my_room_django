@@ -45,7 +45,7 @@ def hotel_photos(hotel_id):
         if created: 
             bytearray = get_photo(photo_id)
             lf = tempfile.NamedTemporaryFile(delete=False)
-            lf.name(f'{photo_id}S2.jpg')
+            lf.name = f'{photo_id}S2.jpg'
             lf.write(bytearray)
             lf.flush()
 
