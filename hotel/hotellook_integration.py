@@ -1,5 +1,4 @@
 
-import os
 import tempfile
 from django.core.files import File
 from django.core.exceptions import ObjectDoesNotExist
@@ -46,19 +45,13 @@ def hotel_photos(hotel_id):
         hotel_photo, created = HotelPhoto.objects.get_or_create(id=photo_id, hotel=hotel)
         if created: 
             bytearray = get_photo(photo_id)
-            if settings.DEBUG:
-                with open(f'{photo_id}.jpg', 'wb') as file:
-                    file.write(bytearray)
-                    hotel_photo.image.save(f'{photo_id}.jpg', file)
-                    os.remove(f'{photo_id}.jpg')
-            else:
-                lf = tempfile.NamedTemporaryFile()
-                lf.write(bytearray)
+            lf = tempfile.NamedTemporaryFile()
+            lf.write(bytearray)
 
-                hotel_photo.image.save(
-                    f'{photo_id}.jpg',
-                    File(lf, 'wb')
-                )
+            hotel_photo.image.save(
+                f'{photo_id}.jpg',
+                File(lf, 'rb')
+            )
             hotel_photo.save()
     
     return True
